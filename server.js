@@ -1,7 +1,7 @@
-var express = require('express'),
-  app = express(),
-  port = process.env.PORT || 3000;
+// var express = require('express'),
+//   app = express(),
+//   port = process.env.PORT || 3000;
 
-app.listen(port);
+// app.listen(port);
 
-console.log('RESTful API server started on: ' + port);
+// console.log('RESTful API server started on: ' + port);

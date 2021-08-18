@@ -1,84 +1,86 @@
-'use strict';
-var mongoose = require('mongoose');
+"use strict";
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-
 
 var CustomerProfileSchema = new Schema({
     firstName: {
         type: String,
-        required: [true, 'Kindly enter your first name']
+        required: [true, "Kindly enter your first name"],
     },
     lastName: {
         type: String,
-        required: [true, 'Kindly enter your last name']
+        required: [true, "Kindly enter your last name"],
     },
     email: {
         type: String,
-        required: [true, 'Kindly enter your email']
+        required: [true, "Kindly enter your email"],
     },
     password: {
         type: String,
-        required: [true, 'Kindly enter your password']
+        required: [true, "Kindly enter your password"],
     },
     dateCreated: {
         type: Date,
-        default: DateTime.Now
-    }
+        default: DateTime.Now,
+    },
 });
-module.exports = mongoose.model('CustomerProfile', CustomerProfileSchema);
+module.exports = mongoose.model("CustomerProfile", CustomerProfileSchema);
 
 var AccountNumberSchema = new Schema({
     customerId: {
-        type: String
+        type: String,
     },
     accountNumber: {
-        type: String
+        type: String,
     },
     balance: {
         type: Number,
-        default: 500000
+        default: 500000,
     },
     dateCreated: {
         type: Date,
-        default: DateTime.Now
-    }
+        default: DateTime.Now,
+    },
 });
-module.exports = mongoose.model('AccountNumbers', AccountNumberSchema);
+module.exports = mongoose.model("AccountNumbers", AccountNumberSchema);
 
 var TransactionHistoryLogSchema = new Schema({
     senderAccountNumber: {
         type: String,
-        required: 'Sender"s Account Number cannot be empty'
+        required: 'Sender"s Account Number cannot be empty',
     },
     receiverAccountNumber: {
         type: String,
-        required: 'Receiver"s Account Number cannot be empty'
+        required: 'Receiver"s Account Number cannot be empty',
     },
     narration: {
         type: String,
     },
     amount: {
         type: Number,
-        required: 'Kindly enter your email'
+        required: "Kindly enter your email",
     },
     transactionTime: {
         type: Date,
     },
     isSuccessful: {
         type: Boolean,
-        default: false
+        default: false,
     },
     failureReason: {
-        type: String
+        type: String,
     },
     reversalStatus: {
-        type: Boolean
+        type: Boolean,
     },
     trialCount: {
-        type: Number
-    }
+        type: Number,
+    },
 });
-module.exports = mongoose.model('TransactionHistoryLog', TransactionHistoryLogSchema);
+module.exports = mongoose.model(
+    "TransactionHistoryLog",
+    TransactionHistoryLogSchema
+);
 
 var AccountHistorySchema = new Schema({
     accountNumber: {
@@ -87,16 +89,16 @@ var AccountHistorySchema = new Schema({
     transactionType: {
         type: [{
             type: String,
-            enum: ['debit', 'credit', 'unknown']
-        }],
-        default: ['unknown']
+            enum: ["debit", "credit", "unknown"],
+        }, ],
+        default: ["unknown"],
     },
     amount: {
         type: Number,
-        required: 'Kindly enter your email'
+        required: "Kindly enter your email",
     },
     transactionTime: {
         type: Date,
-    }
+    },
 });
-module.exports = mongoose.model('AccountHistory', AccountHistorySchema);
+module.exports = mongoose.model("AccountHistory", AccountHistorySchema);
