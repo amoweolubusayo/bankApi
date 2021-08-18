@@ -6,6 +6,8 @@ const jwt = require("jsonwebtoken");
 
 
 const Customer = require("./api/models/customer");
+const AccountNumber = require("./api/models/accountnumber");
+const TransactionHistoryLog = require("./api/models/transactionhistorylog");
 const auth = require("./middleware/auth");
 const app = express();
 
@@ -23,24 +25,35 @@ app.post("/signup", async(req, res) => {
             res.status(400).send("All input is required");
         }
 
-        // check if user already exist
+        // check if user has 4 account numbers
         // Validate if user exist in our database
-        const oldUser = await Customer.findOne({ email });
+        const oldUser = await Customer.findById({ email });
 
         if (oldUser) {
-            return res.status(409).send("User Already Exist. Please Login");
+            return res.status(409).send("You have up to four account numbers already");
         }
 
         //Encrypt user password
         encryptedPassword = await bcrypt.hash(password, 10);
 
         // Create user in our database
-        const customer = await create({
+        const customer = await Customer.create({
             first_name,
             last_name,
             email: email.toLowerCase(),
             password: encryptedPassword,
         });
+        await customer.save();
+        res.send(customer);
+
+        //generate account number
+        const acctresponse = await AccountNumber.create({
+            account_number: Math.floor(100000 + Math.random() * 900000),
+        });
+
+
+        await acctresponse.save();
+        res.send(acctresponse);
 
         // Create token
         const token = jwt.sign({ cust_id: cust._id, email },
@@ -51,10 +64,7 @@ app.post("/signup", async(req, res) => {
         // save user token
         user.token = token;
 
-        //generate account number
-        const response = await create({
-            account_number: "1234567890",
-        });
+
 
         // return new user
         res.status(201).json(response);
@@ -63,5 +73,29 @@ app.post("/signup", async(req, res) => {
     }
 
 });
+
+
+app.post("/welcome", auth, (req, res) => {
+    res.status(200).send("Welcome 🙌 ");
+});
+
+app.get("/findaccount", auth, async(req, res) => {
+    const { accountNumber } = req.body;
+
+    const accountDetails = await AccountNumber.findById({ accountNumber })
+        // return accountdetails
+    res.status(201).json(accountDetails);
+});
+
+app.post("/sendfund", auth, (req, res) => {
+    const { sender_account_number, receiver_account_number, narration, amount } = req.body;
+    // Validate input
+    if (!(sender_account_number && receiver_account_number && amount)) {
+        res.status(400).send("All input is required");
+    }
+    //use account number to fetch customer id
+});
+
+
 
 module.exports = app;

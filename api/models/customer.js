@@ -17,7 +17,7 @@ var customerProfileSchema = new mongoose.Schema({
         type: String,
         required: [true, "Kindly enter your password"],
     },
-    dateCreated: {
+    date_created: {
         type: Date,
         default: Date.Now,
     },
