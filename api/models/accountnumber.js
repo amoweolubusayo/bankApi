@@ -1,19 +1,22 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose
 
-var accountNumberSchema = new mongoose.Schema({
+var accountNumberSchema = new Schema({
     customerId: {
-        type: String,
+        type: Schema.ObjectId,
+        ref: "Customer",
     },
-    accountNumber: {
-        type: String,
+    account_number: {
+        type: Number,
+        required: true
     },
     balance: {
         type: Number,
-        default: 500000,
+        default: 5000,
     },
     dateCreated: {
         type: Date,
         default: Date.Now,
     },
 });
-module.exports = mongoose.model("accountNumbers", accountNumberSchema);
+module.exports = mongoose.model("AccountNumbers", accountNumberSchema);

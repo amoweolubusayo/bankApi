@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose
 
-var customerProfileSchema = new mongoose.Schema({
+var customerProfileSchema = new Schema({
     first_name: {
         type: String,
         required: [true, "Kindly enter your first name"],
@@ -22,4 +23,4 @@ var customerProfileSchema = new mongoose.Schema({
         default: Date.Now,
     },
 });
-module.exports = mongoose.model("customer", customerProfileSchema);
+module.exports = mongoose.model("Customer", customerProfileSchema);

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose
 
-var transactionHistoryLogSchema = new mongoose.Schema({
+
+var transactionHistoryLogSchema = new Schema({
     sender_account_number: {
         type: String,
         required: [true, 'Sender"s Account Number cannot be empty'],
@@ -8,6 +10,14 @@ var transactionHistoryLogSchema = new mongoose.Schema({
     receiver_account_number: {
         type: String,
         required: [true, 'Receiver"s Account Number cannot be empty'],
+    },
+    sender: {
+        type: Schema.ObjectId,
+        ref: "Customer",
+    },
+    receiver: {
+        type: Schema.ObjectId,
+        ref: "Customer",
     },
     narration: {
         type: String,
@@ -34,4 +44,4 @@ var transactionHistoryLogSchema = new mongoose.Schema({
         type: Number,
     },
 });
-module.exports = mongoose.model("transactionHistoryLog", transactionHistoryLogSchema);
+module.exports = mongoose.model("TransactionHistoryLog", transactionHistoryLogSchema);
