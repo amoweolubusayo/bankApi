@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose
 
 var accountNumberSchema = new Schema({
-    customerId: {
+    customer: {
         type: Schema.ObjectId,
         ref: "Customer",
     },

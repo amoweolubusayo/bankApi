@@ -1,5 +1,5 @@
 const http = require("http");
-const app = require("./app");
+const app = require("./api/routes");
 const { Server } = require("socket.io");
 const fs = require("fs");
 
@@ -18,7 +18,8 @@ const port = process.env.PORT || API_PORT;
 
 io.on('connection', (socket) => {
     console.log('a user connected');
-    socket.on('submit', (msg) => {
+    socket.on('event', (msg) => {
+        console.log(msg)
         if (msg.type == 'event.interaction') {
             const CreateFiles = fs.createWriteStream('interactions.txt', {
                 flags: 'a'

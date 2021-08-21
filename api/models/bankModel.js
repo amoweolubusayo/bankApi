@@ -27,7 +27,7 @@ var CustomerProfileSchema = new Schema({
 module.exports = mongoose.model("CustomerProfile", CustomerProfileSchema);
 
 var AccountNumberSchema = new Schema({
-    customerId: {
+    customer: {
         type: String,
     },
     accountNumber: {

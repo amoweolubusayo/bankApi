@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Web socket server</title>
+</head>
+
+<body>
+    <form id="form" action="">
+        <input id="input" autocomplete="off" />
+        <button>Submit</button>
+        <button type="button" id="toggle">Toggle Error</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('http://localhost:27017/');
+        var form = document.getElementById('form');
+        var input = document.getElementById('input');
+        var toggle = document.getElementById('toggle');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (input.value) {
+                let msg = {
+                    type: 'event.interaction',
+                    data: input.value
+                }
+                socket.emit('event', msg)
+            }
+        });
+        toggle.addEventListener('click', (e) => {
+            console.log("got here");
+            let msg = {
+                type: 'event.error',
+                data: (Math.random() + 1).toString(36).substring(7)
+            }
+            console.log(msg);
+            socket.emit('event', msg)
+        });
+    </script>
+</body>
+
+</html>
