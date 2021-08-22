@@ -16,7 +16,6 @@ const signup = async(req, res) => {
             });
         }
 
-        // check if user has 4 account numbers
         // Validate if user exist in our database
         const oldCustomer = await Customer.findOne({ email });
         console.log(oldCustomer);
