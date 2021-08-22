@@ -8,7 +8,7 @@ After cloning, create/ add a .env file that will specify your api port, token ke
 You can create an account on Atlas and copy your details from your cluster
 
 
-In your index.html, and replace the port in the io instance with your the port in your env file. 
+In your index.html, replace the port in the io instance with your the port in your env file. 
 To view the tiny frontend app locally, run your port e.g localhost:3000/ to test web socket
 
 IP is limited to 10 requests per call
