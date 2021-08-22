@@ -12,3 +12,6 @@ In your index.html, and replace the port in the io instance with your the port i
 To view the tiny frontend app locally, run your port e.g localhost:3000/ to test web socket
 
 IP is limited to 10 requests per call
+
+To run the app, use command 'npm run dev'
+To run the test suites, use command 'npm test'
